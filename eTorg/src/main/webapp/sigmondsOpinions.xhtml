@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="title">#{res.sigmondsOpinionsTitle}</ui:define>
+		<ui:define name="header">#{res.sigmondsOpinionsHeader}</ui:define>
+		<ui:define name="body">
+		    <p>
+		    	<h:outputText value="#{pol.about}" styleClass="mediumText" escape="false"/>
+		    </p>
+			<h5><h:outputText value="#{pol.environmentTitle}" styleClass="text" escape="false"/></h5>     
+			<h:outputText value="#{pol.environment}" styleClass="mediumText" escape="false"/>
+			<ul>
+		    	<li><h:outputText value="#{pol.pol1}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.pol2}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.pol3}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.pol4}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.pol5}" escape="false"/></li>
+		    </ul>
+		    <ul>
+		    	<h:outputText value="#{pol.infra}"  styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{pol.infra1}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra2}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra3}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra4}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra5}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra6}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra7}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra8}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra9}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra10}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra11}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra12}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra13}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.infra14}" escape="false"/></li>
+		    </ul>
+		    <ul>
+		    	<h:outputText value="#{pol.bil}"  styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{pol.bil1}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil2}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil3}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil4}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil5}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil6}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil7}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil8}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.bil9}" escape="false"/></li>
+		    </ul>
+		    <ul>
+		    	<h:outputText value="#{pol.oil}"  styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{pol.oil1}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.oil2}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.oil3}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.oil4}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.oil5}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.oil6}" escape="false"/></li>
+		    </ul>
+		    <ul>
+		    	<h:outputText value="#{pol.imm}"  styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{pol.imm1}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.imm2}" escape="false"/></li>
+		    	<li><h:outputText value="#{pol.imm3}" escape="false"/></li>
+		    </ul>
+		    <h:outputText value="#{pol.concl}" styleClass="mediumText" escape="false"/>
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.bluemixTitle}</ui:define>
+		<ui:define name="header">#{res.bluemixHeader}</ui:define>
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="body">
+		  	<!-- Select only English to be used -->
+	        <f:view locale="en"></f:view>
+			<p>
+		    	<h:outputText value="#{bx.about}" styleClass="mediumText" escape="false"/>
+		    </p>
+		    <h:outputText value="#{bx.tech}"  styleClass="mediumText" style="font-weight:bold" escape="false"/>
+			<ul>
+		    	<li><h:outputText value="#{bx.tech1}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech2}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech3}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech4}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech5}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech6}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech7}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech8}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech9}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech10}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech11}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.tech12}" escape="false"/></li>
+		    </ul>   
+			<h5><h:outputText value="#{bx.buildTitle}" styleClass="mediumtext" escape="false"/></h5>
+			<h:outputText value="#{bx.build}" styleClass="mediumText" escape="false"/>
+			<h5><h:outputText value="#{bx.actTitle}" styleClass="mediumtext" escape="false"/></h5>  	
+			<ol>
+			    <h:outputText value="#{bx.act}" styleClass="ol" escape="false"/>
+		    	<li><h:outputText value="#{bx.act1}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act2}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act3}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act4}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act5}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act6}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act7}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act8}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act9}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act10}" escape="false"/></li>
+		    	<li><h:outputText value="#{bx.act11}" escape="false"/></li>
+		    </ol>   
+			<h:outputText value="#{bx.ofCause}" styleClass="mediumText" escape="false"/>		
+			<h5><h:outputText value="#{bx.changesTitle}" styleClass="mediumtext" escape="false"/></h5> 
+			<ol>
+		    	<li><h:outputText value="#{bx.change1}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change2}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change3}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change4}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change5}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change6}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change7}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change8}" escape="false"/><br/><br/></li>
+		    	<li><h:outputText value="#{bx.change9}" escape="false"/></li>
+		    </ol>   
+			<h:outputText value="#{bx.changes}" styleClass="mediumText" escape="false"/>
+			<h5><h:outputText value="#{bx.summaryTitle}" styleClass="mediumtext" escape="false"/></h5>
+			<h:outputText value="#{bx.summary}" styleClass="mediumText" escape="false"/>
+			<p>
+				<h:outputLink
+					value="https://github.com/hansreier/work/blob/master/eTorg/src/main/java/etorg/config/SpringConfig.java"
+					styleClass="menuChoice">#{bx.configcode}
+				</h:outputLink>
+			</p>
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

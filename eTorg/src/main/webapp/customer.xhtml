@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:body>
+	
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.customerTitle}</ui:define>
+		<ui:define name="header">#{res.customerHeader}</ui:define>
+		<ui:define name="toptext">#{res.eTorgTitle}</ui:define>
+		<ui:define name="body">	
+			<h:panelGroup styleClass="scrollTBox" layout="block">
+				<h:panelGrid id="customerInfo" frame="none" columns="2" cellspacing="2" 
+					columnClasses=",," cellpadding="0" rules="none">
+					<h:outputText 	value="#{res.firstNameLabel} *" styleClass="label"/>
+					<h:inputText id="firstName" label="#{res.firstNameLabel}"	value="#{customerBacking.customer.firstName}" maxlength="80" onchange="changed()"
+						 onblur="validateRequired('firstName','#{res.firstNameLabel}')" 
+					     valueChangeListener="#{customerBacking.changed}" required="true"
+					     size="25"/>
+					<h:outputText 	value="#{res.lastNameLabel} *" styleClass="label"/>
+					<h:inputText id="lastName"	label="#{res.lastNameLabel}" value="#{customerBacking.customer.lastName}" maxlength="80" onchange="changed()"
+						 onblur="validateRequired('lastName','#{res.lastNameLabel}')" 
+					     valueChangeListener="#{customerBacking.changed}" required="true" 
+					      size="25"/>
+					<h:outputText 	value="#{res.companyLabel}" styleClass="label"/>
+					<h:inputText id="company" label="#{res.companyLabel}"	value="#{customerBacking.customer.company}" maxlength="80" onchange="changed()"
+					     valueChangeListener="#{customerBacking.changed}"  size="25"/>
+					<h:outputText 	value="#{res.emailLabel}" styleClass="label"/>  
+					<h:panelGroup>
+						<h:inputHidden id="emailError" value="#{customerBacking.emailError}" validator="#{customerBacking.javascriptValidator}" />
+						<h:inputText id="email"	label="#{res.emailLabel}" value="#{customerBacking.customer.email}"  onchange="changed()" 
+					     onblur="validateRegex('email',/#{res.emailRegex}/,'#{msg.error} #{msg.emailError}', '#{res.emailLabel}', 'emailError')"
+						 maxlength="50" valueChangeListener="#{customerBacking.changed}" 
+						 validator="#{customerBacking.regexValidator}"  size="25">
+						  	<f:attribute name="regex" value="#{res.emailRegex}"/>
+						  	<f:attribute name="regexError" value="#{msg.emailError}"/>
+						 </h:inputText> 	
+					</h:panelGroup>	 
+					<h:outputText 	value="#{res.phone1Label} *" styleClass="label"/>
+					<h:panelGroup>
+						<h:inputText id="phone1" label="#{res.phone1Label}" value="#{customerBacking.customer.phone1}" maxlength="80" onchange="changed()"
+					    	onblur="validateRegex('phone1',/#{res.phoneRegex}/,'#{msg.warn} #{msg.phoneWarn}','#{res.phone1Label}','required')"
+					    	valueChangeListener="#{customerBacking.changed}" required="true"  size="25"/>
+					</h:panelGroup>	 	
+					<h:outputText value="#{res.phone2Label}" styleClass="label"/>
+					<h:inputText id="phone2" value="#{customerBacking.customer.phone2}" maxlength="80" onchange="changed()"
+						 onblur="validateRegex('phone2',/#{res.phoneRegex}/,'#{msg.warn} #{msg.phoneWarn}','#{res.phone2Label}')"
+					     valueChangeListener="#{customerBacking.changed}"
+					      size="25"/>	
+					<h:outputText 	value="#{res.addressLabel}" styleClass="label"/>
+					<h:inputText 	value="#{customerBacking.customer.address}"  onchange="changed()" maxLength="255"
+					     valueChangeListener="#{customerBacking.changed}" size="25"/>
+					<h:outputText 	value="#{res.mailboxLabel} " styleClass="label"/>
+					<h:inputText 	value="#{customerBacking.customer.mailbox}"  onchange="changed()" maxLength="255"
+					    valueChangeListener="#{customerBacking.changed}" size="25"/>
+					<h:outputText 	value="#{res.zipCodeLabel} *" styleClass="label"/>
+					<h:inputText id="zip"	label="#{res.zipCodeLabel}" value="#{customerBacking.customer.zipCode}" maxlength="10" 
+					     onblur="validateRegex('zip',/#{res.zipCodeRegex}/,'#{msg.error} #{msg.zipCodeError}','#{res.zipCodeLabel}','required')"
+					     onchange="changed()"  valueChangeListener="#{customerBacking.changed}" required="true"
+					      size="10"
+					     validator="#{customerBacking.regexValidator}">
+					        <f:attribute name="regex" value="#{res.zipCodeRegex}"/>
+						  	<f:attribute name="regexError" value="#{msg.zipCodeError}"/>
+					</h:inputText>
+					<h:outputText 	value="#{res.locationLabel} *" styleClass="label"/>
+					<h:inputText id="location" label="#{res.locationLabel}" value="#{customerBacking.customer.location}" maxlength="50" onchange="changed()" 
+						 onblur="validateRequired('location','#{res.locationLabel}')" 
+					     valueChangeListener="#{customerBacking.changed}"  required="true"  size="25"/> 
+					<h:outputText value="#{res.changedDateLabel}:" styleClass="label"/>
+					<h:outputText value="#{customerBacking.customer.changedDate}">
+						<f:convertDateTime pattern="#{res.dateTimePattern}" timeZone="#{res.timeZone}" />
+					</h:outputText>	         
+				</h:panelGrid>
+		    </h:panelGroup>
+			<br></br>
+			<!-- Orders -->
+			
+			<h:panelGroup styleClass="scrollBox" style="height:200px" layout="block">
+				<h:dataTable var="order" 
+			 	id="orders" 
+             	value="#{customerBacking.customer.orders}"
+             	binding="#{customerBacking.orderListTable}"
+             	title="#{res.ordersTitle}" width="100%" 
+             	headerClass="heading"
+             	styleClass="mainTable"
+             	border="1" cellspacing="0" cellpadding="2" frame="none">
+  					<h:column>
+  						<f:facet name="header">#{res.orderStatusLabel}</f:facet>
+  						<h:outputText value="#{order.status}" converter="enumStringConverter"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">
+  						 	<div style="float:right">#{res.priceLabel}</div>
+  						 </f:facet>
+  						 <h:outputText value = "#{res.moneySymbol}" style="float:right; padding-left: 0.3em;"/>
+  						 <h:outputText value ="#{order.price*res.exchangeRate}" style="float:right"> 
+  							<f:convertNumber  pattern="#{res.moneyFormat}" locale="#{res.moneyLocale}"/>
+  						 </h:outputText>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">#{res.changedDateLabel}</f:facet>
+  						<h:outputText value="#{order.changedDate}">
+  							<f:convertDateTime pattern="#{res.dateTimePattern}" timeZone="#{res.timeZone}" />
+  						</h:outputText>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">#{res.orderKeyLabel}</f:facet>
+  						<h:commandButton action="#{customerBacking.selectOrder}" value="#{order.orderId}" styleClass="link"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">#{res.selectedLabel}</f:facet>
+  						<h:selectBooleanCheckbox value="#{order.selected}"/>	
+  					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+			
+			<br></br> 
+			<h:panelGroup styleClass="buttonBox" layout="block">	
+					<h:commandButton value="#{res.saveCustomerButton}" actionListener="#{customerBacking.save}" styleClass="button" 
+					    disabled="#{!customerBacking.customer.loggedIn}"/>
+					<h:commandButton value="#{res.viewOrderButton}" action= "#{customerBacking.cart}" styleClass="button" 
+						immediate="#{!customerBacking.customer.loggedIn}"/>
+					<h:commandButton value="#{res.deleteSelectedButton}" actionListener="#{customerBacking.deleteOrders}" styleClass="button" 
+					    disabled="#{!customerBacking.customer.loggedIn}"/>
+					<h:commandButton value="#{res.changePasswordButton}" action="#{customerBacking.changePassword}" styleClass="button"
+					    disabled="#{!customerBacking.customer.loggedIn}"/>
+					<h:commandButton id="logout" value="#{res.logoutButton}"  styleClass="button" 
+					    onclick="if (!logoff()) return false" immediate="true"
+						actionListener="#{customerBacking.logout}" disabled="#{!orderBacking.order.customer.loggedIn}"/>			
+			</h:panelGroup>	 
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>
+	</h:body>
+</html>

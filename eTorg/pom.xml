@@ -1,0 +1,290 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>eTorg</groupId>
+  <artifactId>eTorg</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+    <build>
+    	<!-- Version numbers in war file creates undeploy problem  using Tomcat admin console -->
+    	<finalName>eTorg</finalName>
+  		<plugins>
+  			<!-- Compiler version -->
+  			<plugin>
+  			    <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>		
+				</configuration>
+			</plugin>
+			<!-- this plugin with configuration builds a jar and a war -->
+			<!--  plugin>  
+				<artifactId>maven-war-plugin</artifactId>  <version>2.1-beta-1</version>  
+			    <configuration>  
+			    	<attachClasses>true</attachClasses>  
+			    </configuration> 
+			</plugin-->  
+			
+			<!-- add Jetty support
+  			<plugin>
+  				<groupId>org.mortbay.jetty</groupId>
+  				<artifactId>maven-jetty-plugin</artifactId>
+  				<version>6.1.22</version>	
+  			</plugin>
+  		
+  			<plugin>
+        		<groupId>org.mortbay.jetty</groupId>
+        		<artifactId>jetty-maven-plugin</artifactId>
+        		<version>7.1.0.v20100505</version>
+        		<configuration></configuration>
+        	</plugin-->
+  		
+  		<!-- add Eclipse WTP support -->
+        	<plugin>
+            	<artifactId>maven-eclipse-plugin</artifactId>
+            	<version>2.10</version>
+        	</plugin>
+        
+  		</plugins>
+  		
+  		<!-- Eclipse WTP support (Web tools project) parameters -->
+		<pluginManagement>
+    		<plugins>
+        		<plugin>
+            		<artifactId>maven-eclipse-plugin</artifactId>
+            		<configuration>
+                		<wtpversion>2.0</wtpversion>
+                		<wtpapplicationxml>true</wtpapplicationxml>
+                		<wtpmanifest>true</wtpmanifest>
+                		<downloadSources>true</downloadSources>
+                		<downloadJavadocs>true</downloadJavadocs>
+                		<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
+                		<manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF</manifest>
+            		</configuration>
+        		</plugin>
+    		</plugins>
+		</pluginManagement>
+		<!-- define resources (resources dir is default -->
+	 	<resources>
+	 		<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/images</directory>
+			</resource>
+		</resources>
+  	</build>
+  	
+  	<!-- Add other repository, JSF 2.0 support cannot be found in central repository -->
+  	<repositories>   
+		<repository> 
+    	<id>java.net</id>      
+		<name>Java.net Repository for Maven</name> 
+        <url>http://download.java.net/maven/2/</url> 
+		</repository>
+		
+		<repository>
+       		<id>repository.springsource.milestone</id>
+      		<name>SpringSource Milestone Repository</name>
+       		<url>http://repo.springsource.org/milestone</url>
+     </repository> 
+	</repositories>
+	
+	<!-- Shared version number properties --> 
+	<properties>  
+		<springVersion>4.2.3.RELEASE</springVersion>
+		<!-- Must upgrade hibernate for Spring 5.. -->
+		<!--  pringVersion>5.0.5.RELEASE</springVersion-->   
+		<hibernateVersion>4.3.11.Final</hibernateVersion>
+		<!--Hibernate 5 requires at least namingStrategy code to be changed-->
+		<!--Different class is generated for postgres and mysql -->
+		<!--hibernateVersion>5.2.16.Final</hibernateVersion-->
+	</properties>  
+	
+	<dependencies>
+	
+		<!-- Option 1: Use if deploying to a Java EE application server (GlassFish, JBoss AS, etc
+		
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.0</version>
+		</dependency-->
+  		
+  		<!-- Option 2: Use if deploying to a servlet container (Tomcat, Jetty, etc) -->
+  		<!--  Oracle Mojarra JSF implementation -->
+  		<!-- use provided if Apache Myfaces implementation is to be used on websphere server 
+  		<dependency>
+  			<groupId>com.sun.faces</groupId>
+  			<artifactId>jsf-impl</artifactId>
+  			<version>2.2.8-02</version>
+  			<scope>compile</scope>
+  		</dependency>
+  		
+  		<dependency>
+  			<groupId>com.sun.faces</groupId>
+  			<artifactId>jsf-api</artifactId>
+  			<version>2.2.8-02</version>
+  			<scope>compile</scope>
+  		</dependency> -->
+  		
+  		<!-- apache myfaces JSF implementation -->
+  		<dependency>
+  			<groupId>org.apache.myfaces.core</groupId>
+      		<artifactId>myfaces-api</artifactId>
+      		<version>2.2.12</version>
+      		<scope>compile</scope>
+    	</dependency>
+   		<dependency>
+      		<groupId>org.apache.myfaces.core</groupId>
+      		<artifactId>myfaces-impl</artifactId>
+      		<version>2.2.12</version>
+      		<scope>compile</scope>
+    	</dependency>		
+  	
+  	    <!-- Actually provided for tomcat, according to doc
+  	         but cannot be because it is needed in war file for the embedded JettyServer  -->
+  		<dependency>
+  			<groupId>javax.el</groupId>
+  			<artifactId>el-api</artifactId>
+  			<version>2.2</version>
+  			<scope>compile</scope>
+  		</dependency>
+  		
+  		<dependency>
+  			<groupId>org.glassfish.web</groupId>
+  			<artifactId>el-impl</artifactId>
+  			<version>2.2</version>
+  			<scope>runtime</scope>
+  		</dependency>	  
+		 
+		<dependency>  
+  			<groupId>javax.servlet.jsp</groupId>  
+  			<artifactId>jsp-api</artifactId>  
+  			<version>2.2</version>  
+  			<scope>provided</scope>  
+		</dependency>  
+		
+		<!-- -Spring -->
+  		<dependency>  
+			<groupId>org.springframework</groupId>  
+			<artifactId>spring-core</artifactId>  
+			<version>${springVersion}</version>  
+		</dependency>  
+  		
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springVersion}</version>
+			<scope>compile</scope>
+		</dependency>
+  		
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springVersion}</version>
+			<scope>compile</scope>
+		</dependency>
+  		
+  		<dependency>
+  			<groupId>org.springframework</groupId>
+  			<artifactId>spring-context-support</artifactId>
+  			<version>${springVersion}</version>
+  		</dependency>
+  		
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springVersion}</version>
+		</dependency>
+		
+		<!--  spring cloud dependencies for manual configuration (1.1.0-RELEASE?)-->
+		<dependency>
+      		<groupId>org.springframework.cloud</groupId>
+     		<artifactId>spring-cloud-spring-service-connector</artifactId>
+    		<version>1.2.1.RELEASE</version>
+    	</dependency>
+    	<!--  seems not to be required for this version -->
+    	<dependency>
+    		<groupId>org.springframework.cloud</groupId>
+    		<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+    		<version>1.2.1.RELEASE</version>
+  		</dependency>
+ 
+  		
+  		<!--  hibernate settings
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernateVersion}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- c3p0 connection pool controlled by hibernate-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernateVersion}</version>
+		</dependency>
+		
+		<!-- dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>${hibernateVersion}</version>
+		</dependency-->
+		
+		<!-- MySQL database driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.9</version>
+		</dependency>
+		
+		<!-- PostgresSQL database driver -->
+		<dependency>
+    		<groupId>org.postgresql</groupId>
+    		<artifactId>postgresql</artifactId>
+    		<!--  version>9.4-1200-jdbc41</version-->
+    		<version>42.1.4</version>
+		</dependency>
+		
+		<!-- DB2 driver 10.5 -->
+		<!--  mvn install:install-file -Dfile=db2jcc.jar -DgroupId=com.ibm.db2 -DartifactId=db2jcc -Dversion=10.5 -Dpackaging=jar -DgeneratePom=true -->
+		<dependency>
+         	<groupId>com.ibm.db2</groupId>
+         	<artifactId>db2jcc </artifactId>
+         	<version>10.5</version>
+ 		</dependency>
+ 		
+ 		<dependency>
+			<groupId>com.ibm.db2</groupId>
+			<artifactId>nosqljson</artifactId>
+			<version>1.0</version>
+		</dependency>
+ 
+ 		<!-- logging log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
+		<!-- primefaces -->
+		<dependency>  
+    		<groupId>org.primefaces</groupId>  
+    		<artifactId>primefaces</artifactId>  
+    		<version>6.1</version>  
+		</dependency>  	
+		
+	</dependencies>
+	
+	
+	
+</project>

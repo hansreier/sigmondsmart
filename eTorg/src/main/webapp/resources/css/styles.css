@@ -1,0 +1,341 @@
+/* Styles (except tables) */
+
+/* PUH! Required to get heigh% to work with div */
+html { 
+	height:100%; 
+	width: 100%; 
+    font-size:100%; 
+    overflow: hidden;
+} 
+/* Set viewport big enough for mobile phones >device width. */
+/* Note width is the width of the viewport. */
+/* Device-width is the current resolution of the device. */
+/* Note: If orientation changes, width changes. */
+/* Except for iPhone/iPad where width in portrait mode is used */
+/* I have given up special support for this in this version */
+/* @media screen  and (max-device-width: 500px) { */
+@media screen  and (max-width: 320px) { 
+	html {
+		width: 320px;
+	}
+}
+
+/* font size is for some reason set too small for tablets */	
+@media screen  and (min-device-width: 800px) and (max-device-width: 1400px) {
+	html {
+		font-size: 1.25em;
+	}
+}
+			
+/* HTML body */
+body {
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%; 
+	/*font-size: 16px; */
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* The entire input form */
+form {
+	width: 100%;
+	height: 100%;
+}
+
+/* bullet list, font size and line-height defined to be the same as medium test */
+ul {
+	list-style-position: outside;
+	list-style-type: bullet;
+	padding-left: 1em;
+	margin-left: 0;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+
+/* Correct position of list headline */
+.ul {
+	margin-left: -1em;
+}
+
+/* numbered list, font size and line-height defined to be the same as medium test */
+ol {
+	list-style-position: outside;
+	padding-left: 2em;
+	margin-left: 0;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+
+/*li  {font-size:1em;}*/
+
+/* Correct position of list headline */
+.ol {
+	margin-left: -2em;
+}
+
+
+
+/* Link color */
+a:hover { 
+	color: blue; 
+}	
+
+/* An emulated link, used for h:CommandButton */
+.link {
+	background: transparent;
+  	border: 0;
+  	border-bottom: 1px solid blue;
+  	color: blue;
+  	cursor: pointer;
+  	margin:0;
+  	padding: 0;
+}
+
+/* Buttons */
+.button { 
+	background-color: LightGrey;
+	font-size: 0.7em;
+	margin: 4px 4px;
+}
+
+/* SmallButtons */
+.smallButton { 
+	background-color: LightGrey;
+	font-size: 0.55em;
+	/*width: 0.2em;*/
+	padding: 0em 0.3em;
+	margin: 0.2em;
+}
+
+/* Logo button */
+.logo { 
+	color: green;
+	font-size: 0.7em;
+	background-color: transparent;
+	border: none;
+	padding: 0px;
+}
+
+/* Author */
+.author {
+	color: green;
+	font-size: 0.7em;
+	background-color: transparent;
+}
+
+.author:before {
+	content: "\2122\00A0\00A9";
+	font-size: 0.9em;
+}
+
+/* Numbers */
+.number {
+	text-align: right;
+  	color: red;            
+}
+
+/* JSF messages */
+.info {
+	color: Blue;
+}
+
+.warn { 
+	color: Red;
+}
+
+.error { 
+	color: Red;
+ 	font-weight: bold;
+}
+
+.fatal { 
+	color: Red;
+	font-weight: bold;
+}
+
+.message { 
+	color: Red;
+	font-weight: bold;
+}
+
+/* A label (JSF OutputText) before an input field */
+.label { 
+	font-weight: bold;
+}
+
+#topArea {
+	height: 1.6em;
+	width: 100%;
+}	
+
+/* Menu area below the top area */
+#menuArea {
+	/*background-color: #FFFFCC ;*/
+	background-color: white;
+	margin: 0px;
+	padding: 5px;
+	float: top;
+	border-bottom: 1px solid black;
+	/*heigth should be as little as possible*/
+    /*height: 20%;*/
+    /*border: 1px solid black;*/
+    overflow: auto;
+}
+
+/* Display of each menu element */
+.menuChoice { 
+	/*background-color: #E8E8E8;*/
+	/*margin: 0px 0px 0px 0px;*/
+	font-size: 0.8em;
+	padding:4px 10px 4px 0em;
+	border: none;
+	float: left;
+	white-space: nowrap;
+	display: inline;
+}
+
+/* Customize primefaces menu 
+ note: tried to get rid of shading
+ but with no success*/
+.ui-menu {
+	font-size: 0.9em;
+	background: white;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid black;
+	border-top: none;
+	white-space: nowrap;
+	padding: 0px 0px 0px 0px;
+}
+
+.ui-menuitem {
+    background: white;
+}
+
+
+/* Demo message box */
+.textBox {
+	margin: 0.8em 0.0em;
+	display: block;
+}
+
+/* Demo message  Note: added display: block because of  bug in Chrome */
+.demo {
+	color: Brown;
+	font-size: 0.55em;
+	line-height: 120%;
+	display: block;
+}	
+
+.footerText {
+	font-size: 0.7em;
+	margin: 0.3em 0.5em;
+}
+
+.footerMenu {
+	font-size: 0.7em;
+	margin: 0.2em 0.5em;
+}	
+.smallText {
+	font-size: 0.7em;
+	line-height: 1.4em;
+}
+
+.mediumText {
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+
+.text {
+	font-size: 1em;
+	line-height: 1.4em;
+}
+
+.inl {
+}
+
+/* Contents that can be scrolled vertically.
+   Contains all the eTorg screens including headline, menu and footer.
+   Previously the menu was on the left of this area,
+   but was changed for better adaption to mobile responsive design.
+   Overflow must be used (hidden or auto)*/
+#workArea { 
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: auto;
+	background-color: lightyellow;
+	border: 1px solid black;
+}
+
+/* Top of the screen 
+   Note: line-height works as long as there is only one line of text that does not wrap.
+   vertical-align does not work with div, only table cells and images
+   needs relative positioning because of child elements
+   */
+#top {
+	position: relative;
+	height: 1.8em;
+	background-color: yellow;
+	line-height: 1.8em;
+	border-bottom: 1px solid black;
+}
+
+/* Headline */
+#headline {  
+	color: purple;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-family: Arial, Helvetica, sans-serif; 
+	position: absolute; 
+	z-index: 2;
+	white-space:nowrap;
+	margin: 0px 6px; 
+}
+
+/* Page headline */
+#pageHeadline {  
+	color: #440000;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-family: Arial, Helvetica, sans-serif; 
+	z-index: 2;
+	white-space:nowrap;
+	/*margin: 0px 6px; */
+}
+
+/* Work area */
+#work {
+	margin: 0;
+	padding: 0.75em 0.75em;
+}
+
+/* Logo area */
+#reierslogo {
+	width: 160px;
+	white-space:nowrap;
+	/*padding: 0.0em 0.7em;*/
+	/*position: absolute;*/
+	left:0px;
+	margin: 0.0em 0.4em;
+	clear:both;
+}
+
+#loggedin {
+	padding: 0em 0.8em;	
+}
+
+/* Footer, note: Clear is required, else the height of the about block is wrongly calculated!(?)*/
+#footer {
+	padding: 0.5em 0.3em;
+	border-top: 1px solid black;
+	width: 100%;
+	clear: both;
+}	

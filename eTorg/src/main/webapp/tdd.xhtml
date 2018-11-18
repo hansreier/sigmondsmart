@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.tddTitle}</ui:define>
+		<ui:define name="header">#{res.tddHeader}</ui:define>
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="body">
+			<!-- Select only English to be used -->
+			<f:view locale="en"></f:view>
+		    <p><h:outputText value="#{tdd.about}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.why}" styleClass="mediumText" escape="false"/></p>
+		    <ul>
+		    	<h:outputText value="#{tdd.pluss}" styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{tdd.pluss1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pluss2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pluss3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pluss4}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pluss5}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pluss6}"  escape="false"/></li>
+		    </ul>
+		    <h:outputText value="#{tdd.plussconc}" styleClass="mediumText" escape="false"/>
+		    <ul>
+		    	<h:outputText value="#{tdd.minus}" styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{tdd.minus1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.minus2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.minus3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.minus4}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.minus5}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.minus6}"  escape="false"/></li>
+		    </ul>
+		    <p><h:outputText value="#{tdd.minusconc}"  styleClass="mediumText" escape="false"/></p>
+		    <h:outputText value="#{tdd.conc}"  styleClass="mediumText" escape="false"/>
+		    <p><b><h:outputText value="#{tdd.pddhead}" styleClass="mediumText"  escape="false"/></b></p>
+		    <p><h:outputText value="#{tdd.pdd}" styleClass="mediumText" escape="false"/></p>
+		    <ul>
+		    	<h:outputText value="#{tdd.pddpluss}" styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{tdd.pddpluss1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddpluss2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddpluss3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddpluss4}"  escape="false"/></li>
+		    </ul>
+		    <h:outputText value="#{tdd.pddplussconc}" styleClass="mediumText" escape="false"/>
+		    <ul>
+		    	<h:outputText value="#{tdd.pddminus}" styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{tdd.pddminus1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddminus2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddminus3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{tdd.pddminus4}"  escape="false"/></li>
+		    </ul>
+		    <h:outputText value="#{tdd.pddminusconc}" styleClass="mediumText" escape="false"/>
+		    <p><b><h:outputText value="#{tdd.discussh}" styleClass="mediumText" escape="false"/></b></p>
+		    <p><h:outputText value="#{tdd.blackbox}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.waste}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.mistake}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.passed}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.comfortable}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.dependent}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.developers}" styleClass="mediumText" escape="false"/></p>
+		    <p><h:outputText value="#{tdd.technology}" styleClass="mediumText" escape="false"/></p>
+		    <p><b><h:outputText value="#{tdd.summary}" styleClass="mediumText" escape="false"/></b></p>
+		    <p><h:outputText value="#{tdd.lastwords}" styleClass="mediumText" escape="false"/></p>
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

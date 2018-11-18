@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="toptext">#{res.eTorgTitle}</ui:define>
+		<ui:define name="title">#{res.orderTitle}</ui:define>
+		<ui:define name="header">#{res.orderHeader}</ui:define>
+		
+		<ui:define name="body">
+			<br/>
+			<h:panelGroup styleClass="scrollBox" style="height:200px" layout="block">
+				<h:dataTable var="product"
+				 id="Cart" 
+            	 value="#{orderBacking.order.productList}"
+         
+            	 title="#{res.productListTitle}" width="100%"
+          	   	 headerClass="heading"
+          	   	 styleClass="mainTable"
+           	  	 border="1" cellspacing="0" cellpadding="2" frame="none">
+  					<h:column>
+  						<f:facet name="header">
+  						    <!-- override default style example -->
+  							<div style="float:left">#{res.productNameLabel}</div>
+	  					</f:facet>
+  						#{product.name}
+  					</h:column>
+  					
+  					<h:column>
+  						<f:facet name="header">#{res.descriptionLabel}</f:facet>
+  						<h:outputText value="#{product.description}"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">#{res.manufacturerLabel}</f:facet>
+  						<h:outputText value="#{product.manufacturer}"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">#{res.countryLabel}</f:facet>
+  						<h:outputText value="#{product.country}"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">
+  						 	<div style="float:right">#{res.priceLabel}</div>
+  						 </f:facet>
+  						<h:outputText value = "#{res.moneySymbol}" style="float:right; padding-left: 0.3em;"/>
+  						<h:outputText value ="#{product.price*res.exchangeRate}" style="float:right"> 
+  							<f:convertNumber  pattern="#{res.moneyFormat}" locale="#{res.moneyLocale}"/>
+  							<!-- Note: JSF BUG! When changing language online using datatable and session bean
+  							    convertNumber will not pick up the changed resources. The above bug fix works
+  							    but any of the parameters in convertNumber cannot be changed online, so
+  							    e.g. moneyLocale must be the same in Norwegian and English!
+  							    f:convertNumber pattern="#{res.moneyPattern}" locale="#{res.moneyLocale}"/-->
+  						</h:outputText>
+  					</h:column>
+  					<h:column rendered="#{!orderBacking.order.locked}">
+  						<f:facet name="header">
+  						    <h:panelGroup layout="block">#{res.countLabel}</h:panelGroup>
+  						</f:facet>
+  						 <h:inputText id="count" label="#{res.countLabel} (#{product.name})" value="#{product.count}" 
+  						   required="true" size="7">
+  						 	<f:validateLongRange minimum="1" />
+  						 </h:inputText>
+  					</h:column>
+  					<h:column rendered="#{orderBacking.order.locked}">
+  						<f:facet name="header">
+  						    <h:panelGroup layout="block" style="float:right">#{res.countLabel}</h:panelGroup>
+  						</f:facet>
+  						 <h:outputText value="#{product.count}" rendered="#{orderBacking.order.locked}" style="float:right"/>
+  					</h:column>
+  					<h:column>
+  						<f:facet name="header">
+  						 	<div style="float:right">#{res.totalLabel}</div>
+  						 </f:facet>
+  						<h:outputText value="#{product.total*res.exchangeRate}" style="float:right">
+  							<f:convertNumber pattern="0.00" locale="en"/>
+  						</h:outputText>	
+  					</h:column>
+  					<h:column rendered="#{!orderBacking.order.locked}">
+  						<f:facet name="header">#{res.selectedLabel}</f:facet>
+  						<h:selectBooleanCheckbox value="#{product.selected}"/>	
+  					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+			<br></br>
+			<!--  remark that the refresh button must be there for two reasons: A) No Javascript B) Enter button pressed --> 
+			<h:panelGroup styleClass="buttonBox" layout="block">
+				<h:commandButton value="#{res.deleteSelectedButton}" actionListener="#{orderBacking.deleteProducts}" disabled="#{orderBacking.order.locked}" styleClass="button"  />
+				<h:commandButton value="#{res.increaseSelectedButton}"  actionListener= "#{orderBacking.increaseProducts}" disabled="#{orderBacking.order.locked}" styleClass="button" />
+				<h:commandButton value="#{res.decreaseSelectedButton}"  actionListener= "#{orderBacking.decreaseProducts}" disabled="#{orderBacking.order.locked}" styleClass="button" />
+				<h:commandButton value="#{res.toggleSelectedButton}" actionListener= "#{orderBacking.toggleSelected}" disabled="#{orderBacking.order.locked}" styleClass="button" />	
+			 	<h:commandButton value="#{res.refreshButton}" actionListener="#{orderBacking.recalculate}" styleClass="button" disabled="#{orderBacking.order.locked}"/>		
+			</h:panelGroup>	
+			<br></br> <br></br>
+			<h:panelGroup styleClass="scrollTBox" layout="block">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="4" frame="none" 
+				    columnClasses="nowrap" border="0">
+						<h:outputText 	value="#{res.totalPriceLabel}:" styleClass="label" />
+						<h:panelGroup>
+							<h:outputText value ="#{orderBacking.order.price*res.exchangeRate}"> 
+  								<f:convertNumber  pattern="#{res.moneyFormat}" locale="#{res.moneyLocale}"/>
+							</h:outputText>
+							<h:outputText value = " #{res.moneySymbol}"/>
+						</h:panelGroup> 
+						<h:outputText 	value="#{res.descriptionLabel}" styleClass="label"/>
+						<h:inputTextarea id="comment" value="#{orderBacking.order.comment}" cols="30" rows="6" required="false"
+						   validator="#{orderBacking.inputTextareaValidator}" valueChangeListener="#{orderBacking.changed}"
+						   disabled="#{orderBacking.order.locked}" />			
+						<h:outputText 	value="#{res.changedDateLabel}:" styleClass="label"/>
+						<h:outputText	value="#{orderBacking.order.changedDate}">
+							<f:convertDateTime pattern="#{res.dateTimePattern}" timeZone="#{res.timeZone}" />
+						</h:outputText>	
+						<h:outputText value="#{res.orderStatusLabel}:" styleClass="label"/>
+						<h:outputText value="#{orderBacking.order.status}" converter="enumStringConverter"/>
+				</h:panelGrid>
+			</h:panelGroup>
+			<br></br> 
+			<h:panelGroup styleClass="buttonBox" layout="block">
+					<h:commandButton value="#{res.viewProductsButton}" action="productInventory?faces-redirect=true" styleClass="button" />
+					<h:commandButton value="#{res.verifyOrderButton}" action="#{orderBacking.verifyOrder}" styleClass="button"  />
+					<h:commandButton value="#{res.saveOrderButton}" actionListener="#{orderBacking.save}" 
+					     disabled="#{(!orderBacking.order.defined)||(!orderBacking.order.customer.loggedIn)}" styleClass="button"  />
+					<h:commandButton value="#{res.orderButton}" actionListener="#{orderBacking.order}" 
+					     disabled="#{(!orderBacking.order.defined)||(orderBacking.order.noProducts) ||(!orderBacking.order.customer.loggedIn)}" styleClass="button"  />		
+			</h:panelGroup>
+		</ui:define>
+		<ui:define name="about"/> 
+	</ui:composition>		
+	</h:body>
+</html>

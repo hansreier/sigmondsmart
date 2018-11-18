@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.loginTitle}</ui:define>
+		<ui:define name="header">#{res.loginHeader}</ui:define>
+		<ui:define name="toptext">#{res.eTorgTitle}</ui:define>
+		<ui:define name="body">
+			<br/>	
+			<!--  Login -->
+			<h:panelGroup styleClass="overflow" layout="block">
+				<h:panelGroup styleClass="textBox" layout="block">
+					<h:panelGrid columns="2" cellspacing="2" cellpadding="0" frame="none" 
+						columnClasses=",,,," border="0">
+						<h:outputText 	value="#{res.userNameLabel}" styleClass="label"/>
+						<h:inputText id="User" label="#{res.userNameLabel}"	value="#{loginBacking.user.userName}" 
+					             required="true" maxlength="20" />
+						<h:outputText 	value="#{res.passwordLabel}" styleClass="label"/>
+						<h:inputSecret id="Password" label="#{res.passwordLabel}" value="#{loginBacking.user.storedPassword}" 
+					               required="true"  maxlength="10" redisplay="true"/>
+						<h:outputText 	value="#{res.verifyPasswordLabel}" styleClass="label" rendered="#{orderBacking.newUser}" />
+						<h:inputSecret id="VerifyPassword" label="#{res.verifyPasswordLabel}" value="#{loginBacking.verifyPassword}"  
+					               required="true"  maxlength="10" rendered="#{orderBacking.newUser}" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:panelGroup>
+			<br></br>
+			<h:panelGroup styleClass="buttonBox" layout="block"> 		
+					<h:commandButton value="#{res.loginButton}" action="#{loginBacking.login}" styleClass="button"  />
+					<h:commandButton value="#{res.newUserButton}" actionListener="#{loginBacking.setAsNewUser}"  styleClass="button"
+					      disabled="#{orderBacking.newUser}" immediate="true"/>
+					<h:commandButton value="#{res.changePasswordButton}" action="#{loginBacking.gotoChangePassword}"  styleClass="button" 
+					      disabled="#{orderBacking.newUser}"/>
+					<h:commandButton value="#{res.backButton}" action="order?faces-redirect=true"  styleClass="button" immediate="true" />
+			</h:panelGroup>	
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

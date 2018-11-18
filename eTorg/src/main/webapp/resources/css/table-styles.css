@@ -1,0 +1,115 @@
+/* Table styles */
+
+/* Get rid of empty cells problem in tables */
+table { 
+	empty-cells: show;
+}
+
+/* Table rows */
+tr { 
+	font-size: 0.7em;
+	font-family: Arial, Helvetica, sans-serif;
+}
+/* Table headers (not dataTable) */
+th { 
+	background-color: LightGrey;
+}
+
+th.title   {
+	background-color: #ef8429;
+	font-size: 0.93em;
+  	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HTML cell tag */
+td
+{
+	heigth: 100%;	
+	padding-top:2px;
+	padding-bottom: 2px;
+	padding-left: 2px;
+	padding-right:2px;
+}
+
+/* Input tag in table
+   Note: This works as long as the input tag is always within a table*/
+input { 
+	font-size:1.0em;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* To be used if text area input
+	Note: This works as long as the input tag is always within a table*/
+textarea { 
+	font-size:1.0em;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* JSF h:dataTable table style */
+.mainTable {
+	margin-left: auto;
+	margin-right: auto;
+	empty-cells: show;	
+}
+
+/* JSF h:dataTable heading style */
+.heading {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 0.93em;
+    color: black;
+    background-color: LightGrey;
+    text-align: left;
+}
+
+/* A text paragraph */
+.paragraph { 
+	padding: 3px; 
+}
+
+/* A scroll box to put around text areas, enables scroll and draws frame */
+.scrollTBox {
+	border:2px solid grey; 
+	overflow:auto;
+	padding: 3px; 
+}
+
+/* A scroll box to put around tables, enables scroll and draws frame 
+   Note: The scroll works with div (h:panelGroup layout="Block") 
+   and not tables (h:panelGrid), so place a div around the table.*/
+.scrollBox {
+	border:2px solid grey; 
+	overflow:auto;
+	padding: 0px; 
+}
+
+/* A box with border exactly around it contents
+   Note 1: Since float is used elemtents floats around it unless clear is used on the other elements'
+   Note 2: float cannot be used with overflow:auto, a second box around it will do the trick */
+.textBox {
+	border:2px solid grey;
+	float: left;
+	padding: 4px;
+}
+
+/* Add overflow to box */
+.overflow {
+	overflow: auto;
+}	
+/* A box without scroll to put e.g. around tables, draws frame */
+.box {
+	border:2px solid grey;
+}
+
+/* A box without scroll and border (but with float) to wrap buttons */
+.buttonBox {
+	border:none;
+	clear: both; 
+}
+
+/* Stop the text from wrapping, useful for leading text */
+.nowrap {
+	white-space:nowrap;
+}
+
+

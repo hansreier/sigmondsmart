@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.fridgeTitle}</ui:define>
+		<ui:define name="header">#{res.fridgeHeader}</ui:define>
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="body">
+			<p>
+		    	<h:outputText value="#{fg.about}" styleClass="mediumText" escape="false"/>
+		    </p>
+			<h5><h:outputText value="#{fg.fridgeTitle}" styleClass="text" escape="false"/></h5>      
+			<h:outputText value="#{fg.problem}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fg.cause}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fg.cars}" styleClass="mediumText" escape="false"/>
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

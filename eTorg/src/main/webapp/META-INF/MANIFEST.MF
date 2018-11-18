@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: jsf-api-2.0.2-b10.jar jsf-impl-2.0.2-b10.jar
+

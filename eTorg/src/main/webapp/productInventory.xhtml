@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="toptext">#{res.eTorgTitle}</ui:define>
+		<ui:define name="title">#{res.eTorgTitle}</ui:define>
+		<ui:define name="header">#{res.productHeader}</ui:define>
+		
+		<ui:define name="body">
+			<!--  include simple scroll using div and dataTable inside
+			     in a real app a component using either advanced scroll/paging and sorting
+			     should be used (use e.g. Icefaces) --> 
+			<br/>    
+			<h:panelGroup styleClass="scrollBox" style="height:260px" layout="block">
+			<h:dataTable var="product" 
+			 id="Products"
+             value="#{productInventoryBacking.productInventory.productList}"
+             binding="#{productInventoryBacking.productListTable}"
+             title="#{res.productGuide} " width="100%"
+             headerClass="heading"
+             styleClass="mainTable"
+             border="1" cellspacing="0" cellpadding="2" frame="none">
+  				<h:column>
+  					<f:facet name="header">#{res.productNameLabel}</f:facet>
+  					<h:outputText value ="#{product.name}"/>
+  				</h:column>	
+  				<h:column>
+  					<f:facet name="header">#{res.descriptionLabel}</f:facet>
+  					<h:outputText value ="#{product.description}"/>
+  				</h:column>
+  				<h:column>
+  					<f:facet name="header">#{res.manufacturerLabel}</f:facet>
+  					<h:outputText value ="#{product.manufacturer}"/>
+  				</h:column>
+  				<h:column>
+  					<f:facet name="header">#{res.countryLabel}</f:facet>
+  					<h:outputText value ="#{product.country}"/>
+  				</h:column>
+  				<h:column>
+  					<f:facet name="header">
+  						<div style="float:right">#{res.priceLabel}</div>
+  					</f:facet>
+  					<h:outputText value = "#{product.price*res.exchangeRate}"> 
+  							<f:convertNumber  pattern="#{res.moneyFormat}" locale="#{res.moneyLocale}"/>
+  					</h:outputText>
+  					<h:outputText value = " #{res.moneySymbol}"/>
+  				</h:column>
+  				<h:column>
+  					<f:facet name="header">#{res.selectedLabel}</f:facet>
+  					<h:selectBooleanCheckbox value="#{product.selected}"/>	
+  				</h:column>
+  				<h:column>
+  					<f:facet name="header">#{res.countLabel}</f:facet>
+  					<h:inputText id="count" label="#{res.countLabel} (#{product.name})" value="#{product.count}" required="true" size="7" 
+  					onchange="validateLongRange('Products:5','#{msg.error} #{res.countLabel} (#{product.name})','1','','required')">
+  						<f:validateLongRange minimum="1" />
+  					</h:inputText>
+			 	</h:column>
+			</h:dataTable>
+			</h:panelGroup>
+			<br></br> 
+			<h:panelGroup styleClass="buttonBox" layout="block">		
+				<h:commandButton value="#{res.addToCartButton}" 
+					actionListener="#{productInventoryBacking.order}" styleClass="button" />
+				<h:commandButton value="#{res.unselectButton}" 
+					action="#{productInventoryBacking.removeSelected}" styleClass="button" />
+				<h:commandButton value="#{res.viewOrderButton}" 
+					action="order?faces-redirect=true" styleClass="button" />	
+			</h:panelGroup>
+			<h:panelGrid columns="2" cellspacing="2" cellpadding="0" frame="none" border="0"  >		
+					<h:outputText value="#{res.totalPriceLabel}:" styleClass="label" /> 
+					<h:panelGroup>
+						<h:outputText value ="#{orderBacking.order.price*res.exchangeRate}"> 
+  							<f:convertNumber  pattern="#{res.moneyFormat}" locale="#{res.moneyLocale}"/>
+						</h:outputText>
+						<h:outputText value=" #{res.moneySymbol}"/>
+					</h:panelGroup>
+			</h:panelGrid>
+		</ui:define>
+		<h:messages id="mss" styleClass="message" layout="table" infoClass="info" fatalClass="fatal" warnClass="warn" showDetail="true"/>
+		<ui:define name="about">
+			<h:panelGroup styleClass="textBox" layout="block">
+				<h:outputText value="#{txt.demo}" styleClass="demo" escape="false"/>       
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+	</h:body>
+</html>

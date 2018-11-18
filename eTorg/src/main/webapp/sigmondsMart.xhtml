@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.sigmondsMartTitle}</ui:define>
+		<ui:define name="header">#{res.sigmondsMartTop}</ui:define>
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="body">
+			<p>
+				<h:panelGroup layout="block" style="width:25%; float: right; ">
+			 		<h:graphicImage url="images/pas.jpg" title="#{txt.mascot}"  alt="Mascot" width="100%"/> 
+			 		<h:outputText value="#{txt.mascot}"/> 
+				</h:panelGroup>
+			</p>
+			<h:outputText value="#{txt.smart}" styleClass="mediumText" escape="false"/>   
+			<br/><br/>
+			<h:commandButton action="productInventory?faces-redirect=true" value="eTORG: " styleClass="link"/>
+			<br/>
+			<h:outputText value="#{txt.demo}" styleClass="mediumText" escape="false"/>
+			<ul>
+				<h:outputText value="#{txt.demoh}"  styleClass="ul" style="font-weight:bold" escape="false"/>
+		    	<li><h:outputText value="#{txt.demo1}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo1a}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo2}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo3}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo4}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo5}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo6}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo7}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo8}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo9}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo10}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo11}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo12}" escape="false"/></li>
+		    	<li><h:outputText value="#{txt.demo13}" escape="false"/></li>
+		    </ul>
+			<h:outputText value="#{txt.trends}" styleClass="mediumText" escape="false"/>
+			<br/><br/>
+			<h:outputText value="#{txt.lang}" styleClass="mediumText" escape="false"/>
+			<br/>
+			<h:outputText value="#{txt.me}" styleClass="mediumText" escape="false"/>  
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

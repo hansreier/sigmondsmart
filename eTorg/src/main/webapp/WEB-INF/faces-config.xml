@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+  <!-- 
+  Empty for this simple case. Managed bean name automatically
+        derived from bean class name. Bean scope is request by default.
+        Results pages automatically derived from return value of action controller.  
+
+-->
+  <!--  example of initialization of managed property, not used
+<managed-bean>
+	<managed-bean-name>orderBacking</managed-bean-name>
+	<managed-bean-class>etorg.gui.Order</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+	
+	<managed-property>
+		<property-name>comment</property-name>
+		<value>initial comment</value>
+	</managed-property>
+</managed-bean-->
+  <!-- Resource bundle and supported languages for language specific properties like labels -->
+  <application>
+    <!-- bundle with resources, use res prefix in .xhtml to access resource -->
+    <resource-bundle>
+      <base-name>resources</base-name>
+      <var>res</var>
+    </resource-bundle>
+    <!-- bundle with text (for homepage), use txt prefix in .xhtml to access -->
+    <resource-bundle>
+      <base-name>homepage</base-name>
+      <var>txt</var>
+    </resource-bundle>
+    <!-- bundle with text (for politics), use pol prefix in .xhtml to access -->
+    <resource-bundle>
+      <base-name>politics</base-name>
+      <var>pol</var>
+    </resource-bundle>
+    <!-- bundle with text (for s4Active), use s4 prefix in .xhtml to access -->
+    <resource-bundle>
+      <base-name>s4active</base-name>
+      <var>s4</var>
+    </resource-bundle>
+    <!-- bundle with text (for fridge funny text), use fit prefix in .xhtml to access -->
+    <resource-bundle>
+      <base-name>fridge</base-name>
+      <var>fg</var>
+    </resource-bundle>
+    <!-- bundle with text (for fitnesse comments), use fit prefix in .xhtml to access -->
+    <resource-bundle>
+      <base-name>fitnesse</base-name>
+      <var>fit</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>bluemix</base-name>
+      <var>bx</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>tdd</base-name>
+      <var>tdd</var>
+    </resource-bundle>
+    <!-- bundle with messages, use msg prefix in .xhtml to access message -->
+    <resource-bundle>
+      <base-name>messages</base-name>
+      <var>msg</var>
+    </resource-bundle>
+    <message-bundle>messages</message-bundle>
+    <locale-config>
+      <!--  used if application does not support the browsers locale -->
+      <default-locale>en</default-locale>
+      <!--  if the browser supports this it is used -->
+      <!--  if the other Norwegian variants is preferred in the browser no is used-->
+      <!-- if *_no.properties exists this is OK (Alltid bokmål!) -->
+      <!-- could not get this functionality to work in prod, something about Tomcat version?  -->
+      <supported-locale>nb-NO</supported-locale>
+      <supported-locale>nn-NO</supported-locale>
+      <supported-locale>no</supported-locale>
+      <supported-locale>nn</supported-locale>
+      <supported-locale>nb</supported-locale>
+      <supported-locale>en</supported-locale>
+    </locale-config>
+    <!-- Register the el-resolver for Spring (to replace the JSF ones -->
+    <!-- To let spring manage all beans -->
+    <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+  </application>
+  <!--  JSF phase events does not work due to library conflict, have to be solved first
+lifecycle>
+	<phase-listener>etorgshop.gui.MyPhaseListener</phase-listener>
+</lifecycle-->
+</faces-config>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	   default-autowire="byName" -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       		http://www.springframework.org/schema/beans 
+       		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       		http://www.springframework.org/schema/tx 
+       		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.1.xsd"
+	   default-autowire="byName" >
+	  <!-- this file is kept for reference but not used any more since annotation based Java config -->	
+	  <!--  refer to web.xml were type of config is set up -->
+      <!-- enable scan for annotations --> 
+      <context:annotation-config/> 
+      <context:component-scan base-package="etorg"/>  
+     
+      <!-- Configure properties locations -->
+      <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations">
+            	<list>
+            	     <value>classpath:hibernate_mysql.properties</value>
+                	 <!--  value>classpath:hibernate_postgres.properties</value-->
+                	 <!-- override the properties set in the original, to be used for deployment -->
+                	 <!-- value>file:///C:/work/etorg/hibernate_mysql.properties</value-->
+                	 <!-- A problem is that this must be an absolute path -->
+                	 <!-- I have used a windows environment variable to set this -->
+                	 <!-- file:///${ETORG_DIR}/hibernate_mysql.properties</value-->
+                	 <!-- cannot get this to work in linux yet, solved temporary by hard coding -->
+                	 <!-- The problem seems to be that the environment variable will not be read -->
+                	 <value>file:///var/tomcat8/conf/hibernate_mysql.properties</value>
+                </list> 
+			</property>
+			
+			<!-- Skip the settings in local directory if not found -->
+			<property name="ignoreResourceNotFound" value="true"/>
+			<property name="searchSystemEnvironment" value="true"/>
+      </bean>
+      
+      <!--  enable custom scope viewscope -->
+      <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+	        <property name="scopes">
+            <map>
+                <entry key="view">	                    
+                	<bean class="etorg.gui.ViewScope"/>
+                </entry>
+            </map>
+        </property>	    
+        </bean>
+
+      <!-- Include database configuration  -->  
+      <import resource="dbConfig.xml"/> 
+</beans>

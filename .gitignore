@@ -1,0 +1,30 @@
+#ignore all bin directories
+#matches "bin" in any subfolder
+bin/
+
+#ignore all target directories
+target/
+
+#ignore all files ending with ~
+*~
+#ignore project, classpath and settings file
+#removed because problems when not fetching eclipse settings.
+.project
+.classpath
+.factorypath
+.springBeans
+.settings/
+
+#ignore metadata
+.metadata
+.metadata/
+
+#ignore generated javadoc
+*/doc/javadoc/
+/fitnesse/FitNesseRoot/FitNesse
+/fitnesse/FitNesseRoot/files/testResults
+
+#ignore intellij
+.idea/
+*.iml
+

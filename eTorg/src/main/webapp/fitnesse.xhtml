@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+	<ui:composition template="/eTorgTemplate.xhtml">
+		<ui:define name="title">#{res.fitnesseTitle}</ui:define>
+		<ui:define name="header">#{res.fitnesseHeader}</ui:define>
+		<ui:define name="toptext"></ui:define>
+		<ui:define name="body">
+		<!-- Select only English to be used -->
+			<f:view locale="en"></f:view>
+			<p>
+		    	<h:outputText value="#{fit.about}" styleClass="mediumText" escape="false"/>
+		    </p>
+			<h5><h:outputText value="#{fit.usingTitle}" styleClass="text" escape="false"/></h5>      
+			<h:outputText value="#{fit.using}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.testTypes}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.webServices}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.performanceTest}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.jUnit}" styleClass="mediumText" escape="false"/>
+			<h5><h:outputText value="#{fit.lessonTitle}" styleClass="text" escape="false"/></h5>
+			<h:outputText value="#{fit.ideal}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.challenge}" styleClass="mediumText" escape="false"/>
+			<h:outputText value="#{fit.programming}" styleClass="mediumText" escape="false"/>
+			<h5><h:outputText value="#{fit.advantages}" styleClass="text" escape="false"/></h5>	
+			<ul>
+		    	<li><h:outputText value="#{fit.pluss1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss4}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss5}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss6}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss7}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss8}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss9}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss10}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss11}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss12}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss13}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss14}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.pluss15}"  escape="false"/></li>
+		    </ul>
+		    <h5><h:outputText value="#{fit.disadvantages}" styleClass="text" escape="false"/></h5>	
+		    <ul>
+		    	<li><h:outputText value="#{fit.minus1}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus2}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus3}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus4}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus5}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus6}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus7}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus8}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus9}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus10}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus11}"  escape="false"/></li>
+		    	<li><h:outputText value="#{fit.minus12}"  escape="false"/></li>
+		    </ul>
+		    <h5><h:outputText value="#{fit.summaryTitle}" styleClass="text" escape="false"/></h5>	
+			<h:outputText value="#{fit.summary}" styleClass="mediumText" escape="false"/>
+		</ui:define>
+		<ui:define name="about"/>
+	</ui:composition>	
+	</h:body>
+</html>

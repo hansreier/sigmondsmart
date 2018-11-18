@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- define the path for Tomcat, purpose is to avoid that the war file name is used as Path-->
+<Context Path="/eTorg"  />

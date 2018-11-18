@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8; IE=9;" />
+	<meta name="author" content="Hans Reier Sigmond" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="keywords"
+		content="Sigmond, torg, mart, demo, Moelv, Java, JSF, Spring, Hibernate, cart, handlevogn, marked,
+	    programvare, software, mysql" />
+	<meta name="description"
+		content="SigmondsMart is a home page that includes the open source demo software eTorg" />
+	<title><ui:insert name="title">eTorg Page Title</ui:insert></title>
+	<h:outputStylesheet name="css/styles.css"/>
+	<h:outputStylesheet name="css/table-styles.css"/>
+    <h:outputScript name="js/validate.js" target="body"/>
+	<script language="javascript">
+		msgRequired = "#{msg.required}"
+		msgError = "#{msg.error}"
+		msgMinimum = "#{msg.minimum}"
+		msgMaximum = "#{msg.maximum}"
+		msgInteger = "#{msg.integer}"
+		msgLogoff = "#{msg.logoffUnsavedData}"
+		integerRegex = /#{res.integerRegex}/		
+		function nothing() { }
+	</script>
+</h:head>
+<h:body onload="displayJavascriptEnabled('#{res.javaScriptEnabled}')">
+	<f:view locale="#{orderBacking.locale}" />
+	<h:form id="form" prependId="false"
+		onsubmit="document.getElementById('javascriptEnabled').value = true">
+		<h:panelGroup id="workArea" layout="block">
+			<h:panelGroup id="top" layout="block">
+				<h:panelGroup id="headline">
+					<h:outputText value="#{res.sigmondsMartHeader} "></h:outputText>
+					<ui:insert name="toptext">toptext</ui:insert>
+				</h:panelGroup>
+			</h:panelGroup>
+			<p:menubar autoDisplay="true" styleClass="mainmenu">
+				<p:menuitem value="#{txt.home}" url="sigmondsMart.xhtml"></p:menuitem>
+				<p:menuitem value="eTorg" url="productInventory.xhtml"></p:menuitem>
+				<p:submenu label="#{txt.eTorgDoc}">
+            		<p:menuitem value="#{txt.doc}" url="eTorgPDF.xhtml"></p:menuitem>
+            		<p:menuitem value="#{txt.bluemix}" url="bluemix.xhtml"></p:menuitem>
+                </p:submenu>
+                <p:submenu label="#{txt.techBlog}">
+                <p:menuitem value="#{txt.tdd}" url="tdd.xhtml"></p:menuitem>
+                <p:menuitem value="#{txt.fitnesse}" url="fitnesse.xhtml"></p:menuitem>
+                </p:submenu>
+    			<p:submenu label="#{txt.blog}">
+                	<p:menuitem value="#{txt.politics}" url="sigmondsOpinions.xhtml"></p:menuitem>
+					<p:menuitem value="#{txt.s4active}" url="s4Active.xhtml"></p:menuitem>
+					<p:menuitem value="#{txt.fridge}" url="fridge.xhtml"></p:menuitem>
+				</p:submenu>
+            	<p:submenu label="#{txt.links}">
+                	<p:menuitem value="Linked in" url="http://www.linkedin.com/pub/hans-reier-sigmond/1a/886/871"></p:menuitem>
+                	<p:menuitem 
+                		value="Facebook (eTorg)" 
+                		url="http://www.facebook.com/pages/Sigmonds-eTorg/165725663457739?v=page_getting_started">
+                	</p:menuitem>
+					<p:menuitem value="#{txt.lok}" url="http://www.lillehammerorienteringsklubb.no"></p:menuitem>
+					<p:menuitem value="#{txt.rok}" url="http://www.yourvismawebsite.com/ringsaker-orienteringsklubb"></p:menuitem>
+					<p:menuitem value="Lucky Næroset" url="http://www.lucky-naeroset.no"></p:menuitem>
+					<p:menuitem value="#{txt.yr}" url="http://www.yr.no/sted/Norge/Hedmark/Ringsaker/Moelv/"></p:menuitem>
+					<p:menuitem value="reier.sigmond@gmail.com" url="mailto:reier.sigmond@gmail.com"></p:menuitem>
+            	</p:submenu>
+    		</p:menubar> 	
+			<h:panelGroup id="work" layout="block">
+				<h:panelGroup id="pageHeadline" layout="block">
+					<ui:insert name="header">eTorg Page Headline</ui:insert>
+				</h:panelGroup>
+				<ui:insert name="body">eTorg Page Contents</ui:insert>
+				<br></br>
+				<h:messages id="mss" styleClass="message" layout="table"
+					infoClass="info" fatalClass="fatal" warnClass="warn"
+					showDetail="true" />
+				<ui:insert name="about">about eTorg</ui:insert>
+			</h:panelGroup>
+			<h:panelGroup id="footer" layout="block">
+				<h:outputText id="jsenabled" value="#{res.javaScriptDisabled}"
+					styleClass="footerText" style="float:left" />
+				<h:selectOneMenu id="selectLanguage" value="#{orderBacking.locale}"
+					styleClass="footerMenu" style="float:left"
+					onchange="this.form.submit()">
+					<f:selectItem itemValue="#{orderBacking.defaultLocale}"
+						itemLabel="#{res.languageDefault}: #{orderBacking.defaultLocale}" />
+					<f:selectItem itemValue="en" itemLabel="#{res.english}" />
+					<f:selectItem itemValue="no" itemLabel="#{res.norwegian}" />
+				</h:selectOneMenu>
+				<h:commandButton styleClass="smallButton" value=">"
+					style="float:left" />	
+				<h:outputText id="loggedin"
+					value="#{res.loggedInAsLabel}: #{orderBacking.order.customer.firstName}  #{orderBacking.order.customer.lastName}"
+					rendered="#{orderBacking.order.customer.loggedIn}"
+					styleClass="footerText" style="float:right" />
+				<br></br>		
+				<h:panelGroup id="reierslogo" layout="block">
+					<h:commandButton value="#{res.logo}"  styleClass ="logo"/>
+					<h:outputText value="#{res.author}" styleClass ="author"/>
+				</h:panelGroup>
+				<h:inputHidden id="javascriptEnabled"
+					value="#{orderBacking.javascriptEnabled}"/>
+			</h:panelGroup>	
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

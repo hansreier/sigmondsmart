@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+      
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+    		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+   			http://www.springframework.org/schema/tx
+       		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.1.xsd" >
+      
+      <!-- Configure properties locations -->
+      
+      <!--  data source, class refers to connection pool providers 
+           class="org.springframework.jdbc.datasource.DriverManagerDataSource"        Spring, only testing, no proper pooling
+           class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"     DBCP
+           class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"   C3P0
+           Refer to Spring reference and other docs for details on the properties  -->
+      
+     <!-- it seems like using DrivermanagerDatasource creates problems for Postgres JDBC driver, but not MySQL JDBC driver -->      
+     <!--  bean id="eTorgDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver.class}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	 </bean-->
+	 
+     <bean id="eTorgDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver.class}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="5"/>
+		<property name="maxPoolSize" value="20"/>
+		<property name ="maxIdleTime" value="3600"/>
+	 </bean>
+	
+     <!-- session factory -->
+     <!-- bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" :Hibernate annotations -->
+     <!-- using (mainly) JPA annotations -->
+     <!-- Hibernate 4 use LocalSessionFactoryBean and not AnnotationSessionFactoryBean-->
+     <!--  bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"-->
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="eTorgDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>etorg.domain.User</value>
+				<value>etorg.domain.Order</value>
+				<value>etorg.domain.ProductType</value>
+				<value>etorg.domain.Product</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
+				<!-- automatic creation of tables if not exist: hibernate.hbm2ddl.auto use create -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- not required to show sql if turned on in log4j logging -->
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.generate_statistics">true</prop>		
+			</props>
+		</property>
+		<!-- etorg custom table naming strategy -->
+		<property name="namingStrategy">
+			<!--  bean class="etorg.config.NamingStrategy" -->
+			<bean class="${hibernate.naming.strategy}"/>
+		</property>
+	 </bean>
+    
+    <!-- Switch on transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager" /> 
+      
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>  
+</beans>
+
+
