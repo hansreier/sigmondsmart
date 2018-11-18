@@ -1,2 +1,2 @@
 # sigmondsmart
-Reiers offisielle web sider.
+Reiers offisielle web sider
