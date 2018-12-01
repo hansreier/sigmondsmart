@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.util.StatusPrinter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -37,6 +39,8 @@ import etorg.domain.Product;
 import etorg.domain.ProductType;
 import etorg.domain.User;
 import etorg.gui.ViewScope;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author no011033
@@ -68,12 +72,8 @@ import etorg.gui.ViewScope;
 @ComponentScan(basePackages="etorg")
 @EnableTransactionManagement
 public class SpringConfig {
-	
-	/**
-	 * Include log4J
-	 */
-	protected Log log = LogFactory.getLog(this.getClass());
-	
+
+	private static final Logger log = LoggerFactory.getLogger(SpringConfig.class);
 	//Cannot get direct resource lookup using JNDI to work.
 	//@Resource(lookup="jdbc/mydb")
 	//@Resource(lookup = "jdbc/mysql")
@@ -247,7 +247,11 @@ public class SpringConfig {
 	 * Read properties from environment file
 	 * and set other hardcoded properties.
 	 */
-	private void readProperties() {	
+	private void readProperties() {
+		//print logging for debug
+		LoggerContext lc = ((ch.qos.logback.classic.Logger)log).getLoggerContext();
+		StatusPrinter.print(lc);
+		//setting properties
 		jdbcUrl = env.getProperty("jdbc.url");
 		jdbcUsername = env.getProperty("jdbc.username");
 		jdbcPassword = env.getProperty("jdbc.password");
@@ -509,7 +513,7 @@ public class SpringConfig {
 		properties.put("hibernate.dialect", hibernateDialect);
 		if (update) 
 			properties.put("hibernate.hbm2ddl.auto", "update");	
-		properties.put("hibernate.generate_statistics", "true");
+		properties.put("hibernate.generate_statistics", "false");
 		//added to prevent problems, required?
 		properties.put("hibernate.auto_close_session", "true");
 		properties.put("hibernate.connection.release_mode", "after_transaction");

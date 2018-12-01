@@ -20,6 +20,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class defines an order.
@@ -58,9 +60,9 @@ public class Order implements Serializable {
 	}
 
 	/**
-	 * Include log4J
+	 * Include logback
 	 */
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Logger log = LoggerFactory.getLogger(Order.class);
 
 	/**
 	 * Order id (need not be universally unique) Is also not assigned a value

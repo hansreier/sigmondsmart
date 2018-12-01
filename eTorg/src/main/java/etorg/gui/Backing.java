@@ -16,6 +16,8 @@ import javax.faces.validator.ValidatorException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -58,11 +60,11 @@ public abstract class Backing {
 	protected void setJavaScriptError(String javaScriptError) {
 		this.javaScriptError = javaScriptError;
 	}
-	
+
 	/**
-	 * Include log4J
+	 * Include logback
 	 */
-	protected Log log = LogFactory.getLog(this.getClass());
+	protected static final Logger log = LoggerFactory.getLogger(Backing.class);
 	
 	protected <T> T getBackingBean(Class<T> beanClass) {
 		FacesContext fc= FacesContext.getCurrentInstance();
@@ -194,7 +196,7 @@ public abstract class Backing {
 			fc.addMessage(null, new FacesMessage(severity,getMessage("error"),msg));
 		}
 		if (severity == FacesMessage.SEVERITY_FATAL) {
-			log.fatal(msg);
+			log.error("JSF fatal error: "+ msg);
 			fc.addMessage(null, new FacesMessage(severity,getMessage("fatal"),msg));
 		}	
 	}
@@ -338,10 +340,9 @@ public abstract class Backing {
 				// these errors will always be in english and are in principle unwanted (except for debugging)
 				if (b) {
 					if (e.getStackTrace()!= null) {
-						log.fatal(msg+": "+hibernateError);
-						for (StackTraceElement st: e.getStackTrace())   log.fatal(st);
+						log.error(msg+": "+hibernateError);
+						for (StackTraceElement st: e.getStackTrace())   log.error(st.toString());
 						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("fatal"), msg+": "+hibernateError));
-						
 					}
 					else  {
 						log.error(msg+": "+hibernateError);
@@ -359,9 +360,9 @@ public abstract class Backing {
 			// display as JSF message
 			hibernateError = e.getClass().toString();
 			msg = getMessage("fatalHibernateError");
-			log.fatal(msg+" " + hibernateError);
+			log.error(msg+" " + hibernateError);
 			if (e.getStackTrace()!= null) {
-				for (StackTraceElement st: e.getStackTrace())   log.fatal(st);
+				for (StackTraceElement st: e.getStackTrace())   log.error(st.toString());
 			}	
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("fatal"), msg+": "+hibernateError));
 		} 	

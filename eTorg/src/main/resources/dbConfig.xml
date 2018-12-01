@@ -61,9 +61,9 @@
 				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
 				<!-- automatic creation of tables if not exist: hibernate.hbm2ddl.auto use create -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<!-- not required to show sql if turned on in log4j logging -->
+				<!-- not required to show sql if turned on in logback logging -->
 				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.generate_statistics">true</prop>		
+				<prop key="hibernate.generate_statistics">false</prop>
 			</props>
 		</property>
 		<!-- etorg custom table naming strategy -->

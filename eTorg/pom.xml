@@ -4,7 +4,21 @@
   <artifactId>eTorg</artifactId>
   <version>1.0</version>
   <packaging>war</packaging>
-    <build>
+
+	<!-- Shared version number properties -->
+	<properties>
+		<springVersion>4.2.3.RELEASE</springVersion>
+		<!-- Must upgrade hibernate for Spring 5.. -->
+		<!--  pringVersion>5.0.5.RELEASE</springVersion-->
+		<hibernateVersion>4.3.11.Final</hibernateVersion>
+		<!--Hibernate 5 requires at least namingStrategy code to be changed-->
+		<!--Different class is generated for postgres and mysql -->
+		<!--hibernateVersion>5.2.16.Final</hibernateVersion-->
+		<logback.version>1.2.3</logback.version>
+		<slf4j-api.version>1.7.25</slf4j-api.version>
+	</properties>
+
+	<build>
     	<!-- Version numbers in war file creates undeploy problem  using Tomcat admin console -->
     	<finalName>eTorg</finalName>
   		<plugins>
@@ -91,17 +105,6 @@
      </repository> 
 	</repositories>
 	
-	<!-- Shared version number properties --> 
-	<properties>  
-		<springVersion>4.2.3.RELEASE</springVersion>
-		<!-- Must upgrade hibernate for Spring 5.. -->
-		<!--  pringVersion>5.0.5.RELEASE</springVersion-->   
-		<hibernateVersion>4.3.11.Final</hibernateVersion>
-		<!--Hibernate 5 requires at least namingStrategy code to be changed-->
-		<!--Different class is generated for postgres and mysql -->
-		<!--hibernateVersion>5.2.16.Final</hibernateVersion-->
-	</properties>  
-	
 	<dependencies>
 	
 		<!-- Option 1: Use if deploying to a Java EE application server (GlassFish, JBoss AS, etc
@@ -170,7 +173,13 @@
   		<dependency>  
 			<groupId>org.springframework</groupId>  
 			<artifactId>spring-core</artifactId>  
-			<version>${springVersion}</version>  
+			<version>${springVersion}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>  
   		
   		<dependency>
@@ -269,13 +278,29 @@
 			<version>1.0</version>
 		</dependency>
  
- 		<!-- logging log4j -->
+ 		<!-- logging logback -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
 		<!-- primefaces -->
 		<dependency>  
     		<groupId>org.primefaces</groupId>  

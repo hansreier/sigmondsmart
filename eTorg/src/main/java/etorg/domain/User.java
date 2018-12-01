@@ -20,6 +20,8 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NaturalId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class defines a user in the eTorg system. A user in this version is also
@@ -45,9 +47,9 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Include log4J
+	 * Include logback
 	 */
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Logger log = LoggerFactory.getLogger(User.class);
 
 	private long userId;
 
