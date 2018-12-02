@@ -12,6 +12,7 @@ import ch.qos.logback.core.util.StatusPrinter;
 import org.hibernate.SessionFactory;
 // import org.hibernate.cfg.EJB3NamingStrategy;
 // import org.springframework.beans.factory.annotation.Value;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.CloudFactory;
@@ -192,7 +193,7 @@ public class SpringConfig {
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setAnnotatedClasses(User.class, Order.class, ProductType.class, Product.class);
 		sessionFactory.setHibernateProperties(hibernateProperties(true));
-		// sessionFactory.setNamingStrategy(namingStrategy());
+		sessionFactory.setPhysicalNamingStrategy(namingStrategy());
 		return sessionFactory;
 	}
 
@@ -211,7 +212,7 @@ public class SpringConfig {
 		sessionFactory.setDataSource(dummyDataSource());
 		sessionFactory.setAnnotatedClasses(User.class, Order.class, ProductType.class, Product.class);
 		sessionFactory.setHibernateProperties(hibernateProperties(true));
-		// sessionFactory.setNamingStrategy(namingStrategy());
+		sessionFactory.setPhysicalNamingStrategy(namingStrategy());
 		return sessionFactory;
 	}
 
@@ -239,7 +240,7 @@ public class SpringConfig {
 		}
 		sessionFactory.setAnnotatedClasses(User.class, Order.class, ProductType.class, Product.class);
 		sessionFactory.setHibernateProperties(hibernateProperties(serviceFound));
-		// sessionFactory.setNamingStrategy(namingStrategy());
+		sessionFactory.setPhysicalNamingStrategy(namingStrategy());
 		return sessionFactory;
 	}
 
@@ -529,6 +530,10 @@ public class SpringConfig {
 	// return new EJB3NamingStrategy();
 	// }
 	// }
+
+	private PhysicalNamingStrategy namingStrategy() {
+		return new NamingStrategy(hibernateDialect);
+	}
 
 	/**
 	 * Enable custom scope viewscope note: No guarantee that this one works. Not
