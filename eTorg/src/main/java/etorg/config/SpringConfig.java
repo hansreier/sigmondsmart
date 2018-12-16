@@ -92,12 +92,8 @@ public class SpringConfig {
 	}
 
 	/**
-	 * No sql localhost profile, must define Active Profile value
-	 * -Dspring.profiles.active="nosql" to be set e.g. in Tomcat config in Eclipse
-	 * MySQL is used, but dummy data source. If you try to run eTorg locally without
-	 * a database installed, this profile must be used. If not used, c3p0 connection
-	 * pool will create timeout problem. Errors will of cause occur in ETorg when
-	 * trying to log into database.
+	 * h2 localhost profile, must define Active Profile value
+	 * -Dspring.profiles.active="h2" to be set e.g. in Tomcat config in Eclipse
 	 */
 	@Configuration
 	@Profile("h2")
@@ -115,7 +111,7 @@ public class SpringConfig {
 	 */
 	@Configuration
 	@Profile("nosql")
-	@PropertySource(value = "classpath:hibernate_nosql.properties")
+	@PropertySource(value = "classpath:hibernate_mysql.properties")
 	static class NoSQL {
 	}
 
