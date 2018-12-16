@@ -1,9 +1,11 @@
 package etorg.config;
 
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -98,8 +100,22 @@ public class SpringConfig {
 	 * trying to log into database.
 	 */
 	@Configuration
+	@Profile("h2")
+	@PropertySource(value = "classpath:hibernate_h2.properties")
+	static class H2 {
+	}
+
+	/**
+	 * No sql localhost profile, must define Active Profile value
+	 * -Dspring.profiles.active="nosql" to be set e.g. in Tomcat config in Eclipse
+	 * MySQL is used, but dummy data source. If you try to run eTorg locally without
+	 * a database installed, this profile must be used. If not used, c3p0 connection
+	 * pool will create timeout problem. Errors will of cause occur in ETorg when
+	 * trying to log into database.
+	 */
+	@Configuration
 	@Profile("nosql")
-	@PropertySource(value = "classpath:hibernate_mysql.properties")
+	@PropertySource(value = "classpath:hibernate_nosql.properties")
 	static class NoSQL {
 	}
 
@@ -121,7 +137,7 @@ public class SpringConfig {
 	@Configuration
 	@Profile("default")
 	@PropertySources({ @PropertySource(value = "classpath:hibernate_mysql.properties", ignoreResourceNotFound = true),
-			@PropertySource(value = "file:///var/tomcat7/conf/hibernate_mysql.properties", ignoreResourceNotFound = true) })
+			@PropertySource(value = "file:///var/tomcat8/conf/hibernate_mysql.properties", ignoreResourceNotFound = true) })
 	static class Default {
 	}
 
@@ -186,7 +202,7 @@ public class SpringConfig {
 	 * @return
 	 */
 	@Bean
-	@Profile({ "default", "mysql", "postgres" })
+	@Profile({ "default", "mysql", "postgres", "h2" })
 	public LocalSessionFactoryBean sessionFactory() {
 		readProperties();
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -200,7 +216,10 @@ public class SpringConfig {
 	/**
 	 * Hibernate session factory using Spring's Hibernate LocalSessionFactoryBean
 	 * for Hibernate 4. Page 307 Spring book dummy datasource is used for this
-	 * session factory
+	 * session factory.
+	 * 
+	 * After migration to Spring 5 and Hibernate 5, this no longer work with MySQL.
+	 * Not tested on IBM cloud after this upgrade.
 	 * 
 	 * @return
 	 */
@@ -212,7 +231,6 @@ public class SpringConfig {
 		sessionFactory.setDataSource(dummyDataSource());
 		sessionFactory.setAnnotatedClasses(User.class, Order.class, ProductType.class, Product.class);
 		sessionFactory.setHibernateProperties(hibernateProperties(true));
-		sessionFactory.setPhysicalNamingStrategy(namingStrategy());
 		return sessionFactory;
 	}
 
@@ -256,6 +274,7 @@ public class SpringConfig {
 		jdbcUsername = env.getProperty("jdbc.username");
 		jdbcPassword = env.getProperty("jdbc.password");
 		jdbcDriverClass = env.getProperty("jdbc.driver.class");
+		log.info("jdbc driver class:" + jdbcDriverClass);
 		hibernateDialect = env.getProperty("jdbc.hibernate.dialect");
 		// setting hard coded values
 		// hibernateNamingStrategy = env.getProperty("hibernate.naming.strategy");
@@ -560,5 +579,18 @@ public class SpringConfig {
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
 		return txManager;
+	}
+
+	/**
+	 * Enable H2 console on 8082 http://localhost:8080. Note: Must login on
+	 * jdbc:h2:mem:db as defined in hibernate_h2.properties.
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@Bean(initMethod = "start", destroyMethod = "stop")
+	@Profile({ "h2" })
+	public org.h2.tools.Server h2WebConsoleServer() throws SQLException {
+		return org.h2.tools.Server.createWebServer("-web", "-webAllowOthers", "-webDaemon", "-webPort", "8082");
 	}
 }
