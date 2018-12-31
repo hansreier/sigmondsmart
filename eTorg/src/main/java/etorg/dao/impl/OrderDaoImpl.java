@@ -2,15 +2,25 @@ package etorg.dao.impl;
 
 import java.util.List;
 
+import etorg.domain.Order_;
+import etorg.domain.User;
+import etorg.domain.User_;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import etorg.dao.OrderDao;
 import etorg.domain.Order;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * @author Hans Reier Sigmond Order database interface
@@ -20,6 +30,8 @@ import etorg.domain.Order;
 // and enables component scanning and exeption translation
 @Repository
 public class OrderDaoImpl implements OrderDao {
+
+	private static final Logger log = LoggerFactory.getLogger(OrderDaoImpl.class);
 
 	@Autowired(required = true)
 	private SessionFactory sessionFactory;
@@ -46,10 +58,27 @@ public class OrderDaoImpl implements OrderDao {
 		return existing;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Order> readOrders(long userId) {
-		return (List<Order>) sessionFactory.getCurrentSession().createCriteria(Order.class)
-				.add(Restrictions.eq("customer.userId", userId)).list();
+		log.info("Read orders");
+		//Using Hibernate sessionFactory and not JPA Entitymanager
+		Session session = sessionFactory.getCurrentSession();
+		//build query
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+		Root<Order> order = cq.from(Order.class);
+		Join<Order, User> user = order.join(Order_.customer);
+		cq.select(order);
+		cq.where(cb.equal(user.get(User_.userId), userId));
+		//execute query
+		TypedQuery<Order> typedQuery = session.createQuery(cq);
+		List<Order> orders = typedQuery.getResultList();
+		if (log.isDebugEnabled()) {
+			orders.forEach(num ->log.debug("Order: " + num + num.getOrderId()));
+		}
+		return orders;
+
+	//	return (List<Order>) sessionFactory.getCurrentSession().createCriteria(Order.class)
+	//			.add(Restrictions.eq("customer.userId", userId)).list();
 	}
 
 	// @Query("SELECT * FROM Order o WHERE o.status = ?1");

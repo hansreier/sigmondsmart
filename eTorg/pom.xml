@@ -241,6 +241,13 @@
 			<version>${hibernateVersion}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernateVersion}</version>
+			<scope>compile</scope>
+		</dependency>
 		
 		<!-- c3p0 connection pool controlled by hibernate-->
 		<dependency>

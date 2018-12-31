@@ -3,8 +3,6 @@ package etorg.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	/**
 	 * Call a function to trace the contents of a user
-	 * @param user		The user to trace
+	 * @param order		The user to trace
 	 */
 	private void trace(Order order) {
 		if (log.isTraceEnabled()) {
@@ -111,11 +109,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Transactional
 	public List<Order> readOrders(long userId) {
+		log.info("Read orders");
 		return orderDao.readOrders(userId);
 	}
 	
 	@Transactional
 	public void deleteOrders(List<Order> orders) {
+		log.info("Delete orders");
 		for (Order order: orders) {
 			orderDao.deleteOrder(order);
 		}
