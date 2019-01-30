@@ -54,9 +54,11 @@ public class ProductDaoImpl implements ProductDao {
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Product> cq = cb.createQuery(Product.class);
 		Root<Product> product = cq.from(Product.class);
-		Join<Product, Order> order = product.join(Product_.cart);
+		// A join is shown her, not really required
+		// Join<Product, Order> order = product.join(Product_.cart);
 		cq.select(product);
-		cq.where(cb.equal(order.get(Order_.orderId), orderId));
+		//cq.where(cb.equal(order.get(Order_.orderId), orderId));
+		cq.where(cb.equal(product.get(Product_.cart), orderId));
 		//execute query
 		TypedQuery<Product> typedQuery = session.createQuery(cq);
 		List<Product> products = typedQuery.getResultList();
