@@ -1,14 +1,15 @@
 package etorg.domain;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class OrderTest {
 
     private Order order;
 
-    @Before
+    @BeforeEach
     public void DefineOrder() {
         order = new Order();
         order.setOrderId(3355);
@@ -18,8 +19,6 @@ public class OrderTest {
     @Test
     public void TestOrder() {
         order.getComment();
-        Assert.assertTrue(order.getComment().equals("Ola"));
+        assertTrue(order.getComment().equals("Ola"));
     }
-
-
 }
