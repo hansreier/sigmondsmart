@@ -9,7 +9,7 @@
 	<properties>
 		<!-- springVersion>4.2.3.RELEASE</springVersion-->
 		<!-- Must upgrade hibernate for Spring 5.. -->
-		<springVersion>5.0.5.RELEASE</springVersion>
+		<springVersion>5.2.2.RELEASE</springVersion>
 		<!--  hibernateVersion>4.3.11.Final</hibernateVersion-->
 		<!--Hibernate 5 requires at least namingStrategy code to be changed-->
 		<!--Different class is generated for postgres and mysql -->
