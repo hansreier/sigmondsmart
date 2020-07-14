@@ -292,7 +292,14 @@
          	<artifactId>db2jcc </artifactId>
          	<version>10.5</version>
  		</dependency>
- 		
+		<!--As a replacement of the above db2 driver? Not tested -->
+		<!--dependency>
+			<groupId>com.ibm.db2.jcc</groupId>
+			<artifactId>db2jcc</artifactId>
+			<version>db2jcc4</version>
+		</dependency-->
+		<!-- Cannot find this jar anywhere in public repo's either -->
+		<!--  mvn install:install-file -Dfile=nosqljson.jar -DgroupId=com.ibm.db2 -DartifactId=nosqljson -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true -->
  		<dependency>
 			<groupId>com.ibm.db2</groupId>
 			<artifactId>nosqljson</artifactId>
@@ -348,8 +355,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency-->
-
-
 	</dependencies>
 	
 	
