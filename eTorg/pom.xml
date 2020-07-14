@@ -274,8 +274,9 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<!--version>5.1.9</version-->
-			<version>8.0.16</version>
+			<version>5.1.49</version>
+			<!-- version>8.0.16</version-->
+			<!-- not compatible with mySQL 5.5 or order, so cannot be used on Oxxus-->
 		</dependency>
 		
 		<!-- PostgresSQL database driver -->
