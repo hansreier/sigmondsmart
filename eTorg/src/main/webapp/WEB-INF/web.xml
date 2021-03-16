@@ -46,7 +46,7 @@
   <!-- Enable caching of static resources 30 days according to Google -->
   <context-param>
     <param-name>com.sun.faces.defaultResourceMaxAge</param-name>
-    <param-value>2592000000</param-value> <!-- 30 days -->  
+    <param-value>604800000</param-value> <!-- 7 days in millisec -->
   </context-param>
   <!-- enable annotation based config, remove if xml based -->
   <context-param>
@@ -61,4 +61,14 @@
     <!--  param-value>/WEB-INF/classes/applicationContext.xml</param-value-->
      <param-value>etorg.config.SpringConfig</param-value>
   </context-param>
+  <!-- Enable and force HTTPS, skip if both is to be used-->
+  <!--security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Sigmondsmart</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint-->
 </web-app>
